@@ -1,0 +1,11 @@
+<svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="StreamVibe Icon">
+  <!-- Icon container: 50x50 dark rounded rect -->
+  <rect width="50" height="50" rx="12" fill="#1A1A1A"/>
+  <rect x="0.5" y="0.5" width="49" height="49" rx="11.5" stroke="#262626" stroke-width="1"/>
+
+  <!-- Left chevron (play arrow) -->
+  <path d="M14 17L22 25L14 33" stroke="#E50000" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Right chevron (play arrow) -->
+  <path d="M24 17L32 25L24 33" stroke="#E50000" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

@@ -6,7 +6,7 @@ import MovieCard from '../components/MovieCard';
 import NavArrows from '../components/NavArrows';
 import CTABanner from '../components/CTABanner';
 import Footer from '../components/Footer';
-import { movies, shows, genres } from '../data/streamData';
+import { movies, shows } from '../data/streamData';
 
 // All available genre filter labels
 const allGenres = [

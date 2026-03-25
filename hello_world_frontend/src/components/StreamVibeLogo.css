@@ -1,35 +1,26 @@
 /* =========================================================
    StreamVibeLogo – component styles
+   The logo is rendered as a single inline SVG (vector), so
+   minimal CSS is needed. Styles control positioning/cursor.
    ========================================================= */
 
 .sv-logo {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 8px;
+  display: inline-block;
   flex-shrink: 0;
   cursor: pointer;
   user-select: none;
-  text-decoration: none;
+  vertical-align: middle;
+  /* Ensure crisp rendering at any size */
+  shape-rendering: geometricPrecision;
+  text-rendering: optimizeLegibility;
 }
 
-/* Icon box */
-.sv-logo__icon {
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 12px;
-  overflow: hidden;
+.sv-logo--icon-only {
+  display: inline-block;
 }
 
-/* Wordmark */
-.sv-logo__text {
-  font-family: 'Manrope', sans-serif;
-  font-weight: 700;
-  font-size: 18px;
-  line-height: 1;
-  color: #FFFFFF;
-  letter-spacing: 0;
-  white-space: nowrap;
+/* Hover state: subtle brightness boost */
+.sv-logo:hover {
+  opacity: 0.9;
+  transition: opacity 0.15s ease;
 }
