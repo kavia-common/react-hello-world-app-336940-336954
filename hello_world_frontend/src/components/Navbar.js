@@ -1,5 +1,6 @@
 import React from 'react';
 import './Navbar.css';
+import StreamVibeLogo from './StreamVibeLogo';
 
 // PUBLIC_INTERFACE
 const Navbar = ({ activePage, navigate }) => {
@@ -13,19 +14,8 @@ const Navbar = ({ activePage, navigate }) => {
   return (
     <nav className="navbar">
       {/* Logo */}
-      <div className="navbar__logo" onClick={() => navigate('home')} style={{ cursor: 'pointer' }}>
-        <div className="navbar__logo-icon">
-          <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect width="50" height="50" rx="8" fill="white"/>
-            <path d="M14 14L25 36L36 14" stroke="#E50000" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
-            <circle cx="25" cy="25" r="4" fill="#E50000"/>
-          </svg>
-        </div>
-        <div className="navbar__logo-text">
-          <svg width="113" height="17" viewBox="0 0 113 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <text x="0" y="14" fontFamily="Manrope, sans-serif" fontWeight="700" fontSize="16" fill="white" letterSpacing="0.5">StreamVibe</text>
-          </svg>
-        </div>
+      <div className="navbar__logo" onClick={() => navigate('home')}>
+        <StreamVibeLogo iconSize={50} showText={true} />
       </div>
 
       {/* Navigation Menu */}
