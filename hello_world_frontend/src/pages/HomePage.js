@@ -12,10 +12,27 @@ import SectionHeader from '../components/SectionHeader';
 import NavArrows from '../components/NavArrows';
 import { genres, devices, subscriptionPlans } from '../data/streamData';
 
+/**
+ * HomePage - The main landing page for StreamVibe.
+ *
+ * REQ: WM-8292 - Home hero value proposition section.
+ * REQ: WM-8293 - Home category exploration section with genre cards.
+ * REQ: WM-8294 - Home device compatibility section.
+ * REQ: WM-8295 - Home FAQ accordion section with scroll-target id.
+ * REQ: WM-8296 - Pricing plans section with Monthly/Yearly billing toggle.
+ * REQ: WM-8291 - Active nav state: activePage="home".
+ * REQ: WM-8291 - Sections have anchor IDs for in-page scroll from Navbar.
+ *
+ * @param {Object}   props
+ * @param {Function} props.navigate - App-level navigation handler
+ * @returns {JSX.Element}
+ */
 // PUBLIC_INTERFACE
 const HomePage = ({ navigate }) => {
   const [genrePage, setGenrePage] = useState(0);
+  // REQ: WM-8296 - Monthly active by default
   const [billingCycle, setBillingCycle] = useState('monthly');
+
   const genresPerPage = 5;
   const totalGenrePages = Math.ceil(genres.length / genresPerPage);
   const visibleGenres = genres.slice(
@@ -26,12 +43,14 @@ const HomePage = ({ navigate }) => {
   return (
     <div className="home-page">
       {/* Hero */}
+      {/* REQ: WM-8292 - Hero section with Start Watching Now CTA */}
       <div className="home-page__hero-wrapper">
         <Navbar activePage="home" navigate={navigate} />
         <HeroSection navigate={navigate} />
       </div>
 
       {/* Genres Section */}
+      {/* REQ: WM-8293 - Category exploration: Action, Adventure, Comedy, Drama, Horror */}
       <section className="home-page__section">
         <SectionHeader
           title="Explore our wide variety of categories"
@@ -52,6 +71,7 @@ const HomePage = ({ navigate }) => {
       </section>
 
       {/* Devices Section */}
+      {/* REQ: WM-8294 - Device cards: Smartphones, Tablet, Smart TV, Laptops, Gaming Consoles, VR Headsets */}
       <section className="home-page__section">
         <SectionHeader
           title="We Provide you streaming experience across various devices."
@@ -72,17 +92,23 @@ const HomePage = ({ navigate }) => {
       </section>
 
       {/* FAQ Section */}
+      {/* REQ: WM-8295 - FAQ accordion; section id set inside FAQSection component */}
       <section className="home-page__section">
         <FAQSection />
       </section>
 
       {/* Subscription Plans */}
-      <section className="home-page__section">
+      {/*
+        REQ: WM-8296 - Pricing section with Monthly/Yearly tabs, plan cards.
+        REQ: WM-8291 - id="subscriptions-section" for scroll-target from Navbar 'Subscriptions' click.
+      */}
+      <section className="home-page__section" id="subscriptions-section">
         <SectionHeader
           title="Choose the plan that's right for you"
           subtitle="Join StreamVibe and select from our flexible subscription options tailored to suit your viewing preferences. Get ready for non-stop entertainment!"
         >
           <div className="home-page__billing-tabs">
+            {/* REQ: WM-8296 - Monthly active by default */}
             <button
               className={`home-page__billing-tab ${billingCycle === 'monthly' ? 'home-page__billing-tab--active' : ''}`}
               onClick={() => setBillingCycle('monthly')}
@@ -99,17 +125,24 @@ const HomePage = ({ navigate }) => {
         </SectionHeader>
         <div className="home-page__plans-grid">
           {subscriptionPlans.map((plan) => (
-            <PlanCard key={plan.id} plan={plan} isPopular={plan.isPopular} />
+            <PlanCard
+              key={plan.id}
+              plan={plan}
+              isPopular={plan.isPopular}
+              billingCycle={billingCycle}
+            />
           ))}
         </div>
       </section>
 
       {/* CTA Banner */}
+      {/* REQ: WM-8300 - CTA with "Start a Free Trail" typo preserved */}
       <section className="home-page__cta-section">
         <CTABanner />
       </section>
 
       {/* Footer */}
+      {/* REQ: WM-8300 - Footer with "Gernes" typo and "@2023 streamvib" copyright */}
       <Footer navigate={navigate} />
     </div>
   );

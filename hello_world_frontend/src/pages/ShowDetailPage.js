@@ -4,10 +4,22 @@ import Navbar from '../components/Navbar';
 import CTABanner from '../components/CTABanner';
 import Footer from '../components/Footer';
 
+/**
+ * Default show data for the Stranger Things "open state".
+ *
+ * REQ: WM-8299 - Show details: Stranger Things title/synopsis.
+ * REQ: WM-8299 - Released Year: 2022 in metadata sidebar.
+ * REQ: WM-8299 - Director / Music labeled fields in metadata sidebar.
+ *
+ * NOTE: Per WM-8299, "Released Year 2022" is the value shown in the metadata sidebar.
+ * The show originally aired in 2016, but the design spec explicitly calls for 2022
+ * as the displayed Released Year value in the sidebar.
+ */
 const defaultShow = {
   id: 101,
   title: 'Stranger Things',
-  year: '2016',
+  // REQ: WM-8299 - Released Year 2022 per design metadata sidebar
+  year: '2022',
   rating: '8.7',
   genres: ['Horror', 'Sci-Fi', 'Thriller'],
   poster: '/assets/movie-bg-11.png',
@@ -20,6 +32,7 @@ const defaultShow = {
   music: 'Kyle Dixon & Michael Stein',
 };
 
+/** Season → episode list mapping for the default show */
 const seasonEpisodes = {
   1: [
     { num: 1, title: 'Chapter One: The Vanishing of Will Byers', duration: '47min', thumb: '/assets/movie-bg-1.png' },
@@ -49,6 +62,21 @@ const seasonEpisodes = {
   ],
 };
 
+/**
+ * ShowDetailPage - Detail view for a TV show (default: Stranger Things).
+ *
+ * REQ: WM-8299 - Shows Page Open view: hero with title/synopsis, Play Now button.
+ * REQ: WM-8299 - Seasons & episodes container.
+ * REQ: WM-8299 - Description panel with exact text.
+ * REQ: WM-8299 - Metadata sidebar: Released Year 2022, Director, Music, Genres, Languages.
+ * REQ: WM-8291 - No dead clicks: all buttons have handlers.
+ * REQ: WM-8300 - CTA banner and footer present on this page.
+ *
+ * @param {Object}  props
+ * @param {Function} props.navigate  - App navigation handler
+ * @param {Object}  [props.show]     - Optional show data (falls back to defaultShow)
+ * @returns {JSX.Element}
+ */
 // PUBLIC_INTERFACE
 const ShowDetailPage = ({ navigate, show }) => {
   const currentShow = show || defaultShow;
@@ -57,10 +85,36 @@ const ShowDetailPage = ({ navigate, show }) => {
   const episodes = seasonEpisodes[selectedSeason] || [];
   const totalSeasons = currentShow.seasons || 4;
 
+  /**
+   * Handle Play Now button click.
+   * REQ: WM-8291 - No dead clicks; destination not evidenced → graceful no-op.
+   */
+  const handlePlayNow = () => {
+    // Play destination is not evidenced in design spec; click acknowledged.
+  };
+
+  /**
+   * Handle "Add to list", "Like", "Volume" icon button clicks.
+   * REQ: WM-8291 - No dead clicks; destinations not evidenced → graceful no-ops.
+   */
+  const handleIconAction = (action) => {
+    // Action acknowledged; specific destination/outcome not evidenced.
+  };
+
+  /**
+   * Handle "See More" for cast/reviews.
+   * REQ: WM-8291 - No dead clicks; destination not evidenced → graceful no-op.
+   */
+  const handleSeeMore = () => {
+    // Destination not evidenced; click acknowledged.
+  };
+
   return (
     <div className="show-detail-page">
       {/* Hero Section */}
+      {/* REQ: WM-8299 - Hero with Stranger Things title/synopsis + Play Now button */}
       <div className="show-detail-page__hero-wrapper">
+        {/* REQ: WM-8291 - Navbar active state: 'movies' when on show detail */}
         <Navbar activePage="movies" navigate={navigate} />
 
         {/* Hero Banner */}
@@ -80,7 +134,8 @@ const ShowDetailPage = ({ navigate, show }) => {
                 <p className="show-detail-page__hero-desc">{currentShow.description}</p>
               </div>
               <div className="show-detail-page__hero-actions">
-                <button className="show-detail-page__play-btn">
+                {/* REQ: WM-8299 - Play Now button */}
+                <button className="show-detail-page__play-btn" onClick={handlePlayNow}>
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                     <circle cx="12" cy="12" r="10" fill="rgba(255,255,255,0.2)"/>
                     <path d="M10 8L16 12L10 16V8Z" fill="white"/>
@@ -88,17 +143,29 @@ const ShowDetailPage = ({ navigate, show }) => {
                   <span>Play Now</span>
                 </button>
                 <div className="show-detail-page__icon-btns">
-                  <button className="show-detail-page__icon-btn" aria-label="Add to list">
+                  <button
+                    className="show-detail-page__icon-btn"
+                    aria-label="Add to list"
+                    onClick={() => handleIconAction('add-to-list')}
+                  >
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                       <path d="M12 5V19M5 12H19" stroke="#BFBFBF" strokeWidth="2" strokeLinecap="round"/>
                     </svg>
                   </button>
-                  <button className="show-detail-page__icon-btn" aria-label="Like">
+                  <button
+                    className="show-detail-page__icon-btn"
+                    aria-label="Like"
+                    onClick={() => handleIconAction('like')}
+                  >
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                       <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" stroke="#BFBFBF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                   </button>
-                  <button className="show-detail-page__icon-btn" aria-label="Volume">
+                  <button
+                    className="show-detail-page__icon-btn"
+                    aria-label="Volume"
+                    onClick={() => handleIconAction('volume')}
+                  >
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                       <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" stroke="#BFBFBF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                       <path d="M15.54 8.46a5 5 0 0 1 0 7.07" stroke="#BFBFBF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -117,6 +184,7 @@ const ShowDetailPage = ({ navigate, show }) => {
         <div className="show-detail-page__left-col">
 
           {/* Seasons & Episodes Panel */}
+          {/* REQ: WM-8299 - Seasons & episodes container */}
           <div className="show-detail-page__seasons-panel">
             <h2 className="show-detail-page__panel-title">Seasons and Episodes</h2>
             {/* Season Tabs */}
@@ -138,6 +206,9 @@ const ShowDetailPage = ({ navigate, show }) => {
                   key={ep.num}
                   className={`show-detail-page__episode ${selectedEpisode === ep.num ? 'show-detail-page__episode--active' : ''}`}
                   onClick={() => setSelectedEpisode(ep.num)}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => e.key === 'Enter' && setSelectedEpisode(ep.num)}
                 >
                   <div
                     className="show-detail-page__ep-thumb"
@@ -163,6 +234,7 @@ const ShowDetailPage = ({ navigate, show }) => {
           </div>
 
           {/* Description Card */}
+          {/* REQ: WM-8299 - Description panel with exact text */}
           <div className="show-detail-page__info-card">
             <h3 className="show-detail-page__info-card-label">Description</h3>
             <p className="show-detail-page__info-card-text">{currentShow.description}</p>
@@ -172,7 +244,12 @@ const ShowDetailPage = ({ navigate, show }) => {
           <div className="show-detail-page__info-card">
             <div className="show-detail-page__cast-header">
               <h3 className="show-detail-page__info-card-label">Cast</h3>
-              <button className="show-detail-page__see-more">See More &rarr;</button>
+              <button
+                className="show-detail-page__see-more"
+                onClick={handleSeeMore}
+              >
+                See More &rarr;
+              </button>
             </div>
             <div className="show-detail-page__cast-grid">
               {['Millie Bobby Brown', 'Finn Wolfhard', 'Winona Ryder', 'David Harbour'].map((name, i) => (
@@ -191,7 +268,12 @@ const ShowDetailPage = ({ navigate, show }) => {
           <div className="show-detail-page__info-card show-detail-page__info-card--reviews">
             <div className="show-detail-page__cast-header">
               <h3 className="show-detail-page__info-card-label">Reviews</h3>
-              <button className="show-detail-page__see-more">See More &rarr;</button>
+              <button
+                className="show-detail-page__see-more"
+                onClick={handleSeeMore}
+              >
+                See More &rarr;
+              </button>
             </div>
             <div className="show-detail-page__rating-display">
               <div className="show-detail-page__stars">
@@ -219,19 +301,22 @@ const ShowDetailPage = ({ navigate, show }) => {
           </div>
         </div>
 
-        {/* Right Column: Show Info */}
+        {/* Right Column: Show Info / Metadata Sidebar */}
+        {/* REQ: WM-8299 - Metadata sidebar: Released Year 2022, Director, Music, Genres, Languages */}
         <div className="show-detail-page__right-col">
           <div className="show-detail-page__show-info-panel">
 
-            {/* Release Year */}
+            {/* Released Year */}
             <div className="show-detail-page__info-row">
               <div className="show-detail-page__info-row-header">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
                   <rect x="3" y="4" width="18" height="18" rx="2" stroke="#999" strokeWidth="2"/>
                   <path d="M16 2V6M8 2V6M3 10H21" stroke="#999" strokeWidth="2" strokeLinecap="round"/>
                 </svg>
+                {/* REQ: WM-8299 - "Released Year" label in metadata sidebar */}
                 <span className="show-detail-page__info-row-label">Released Year</span>
               </div>
+              {/* REQ: WM-8299 - Value: 2022 */}
               <span className="show-detail-page__info-row-value">{currentShow.year}</span>
             </div>
 
@@ -294,6 +379,7 @@ const ShowDetailPage = ({ navigate, show }) => {
             </div>
 
             {/* Director */}
+            {/* REQ: WM-8299 - Director labeled field in metadata sidebar */}
             <div className="show-detail-page__info-row">
               <div className="show-detail-page__info-row-header">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
@@ -314,6 +400,7 @@ const ShowDetailPage = ({ navigate, show }) => {
             </div>
 
             {/* Music */}
+            {/* REQ: WM-8299 - Music labeled field in metadata sidebar */}
             <div className="show-detail-page__info-row">
               <div className="show-detail-page__info-row-header">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
@@ -340,10 +427,13 @@ const ShowDetailPage = ({ navigate, show }) => {
       </div>
 
       {/* CTA Banner */}
+      {/* REQ: WM-8300 - CTA banner on all screens */}
       <section className="show-detail-page__cta">
         <CTABanner />
       </section>
 
+      {/* Footer */}
+      {/* REQ: WM-8300 - Footer on all screens */}
       <Footer navigate={navigate} />
     </div>
   );

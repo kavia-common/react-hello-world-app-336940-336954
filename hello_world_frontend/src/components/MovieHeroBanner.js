@@ -6,6 +6,10 @@ import './MovieHeroBanner.css';
  * Displays a featured movie with background poster, gradient overlay,
  * title, description, action buttons, and navigation controls.
  *
+ * REQ: WM-8297 - Movies & Shows page featured hero with exact title/paragraph.
+ * REQ: WM-8297 - Hero controls (Play Now, slider arrows/indicators) as interactive controls.
+ * REQ: WM-8291 - No dead clicks: all interactive elements have handlers.
+ *
  * @param {Object}   props
  * @param {Object}   props.movie    - Movie/show data object to display
  * @param {Function} props.navigate - Navigation handler
@@ -18,6 +22,17 @@ import './MovieHeroBanner.css';
 // PUBLIC_INTERFACE
 const MovieHeroBanner = ({ movie, navigate, onPrev, onNext, total = 3, current = 0 }) => {
   if (!movie) return null;
+
+  /**
+   * Handle secondary icon button clicks (watchlist, like, volume).
+   * REQ: WM-8291 - No dead clicks; destinations not evidenced → graceful no-op.
+   *
+   * @param {string} action - The action identifier
+   */
+  const handleIconAction = (action) => {
+    // Actions acknowledged; specific outcome/destination not evidenced in design spec.
+    // Prevents dead clicks while not fabricating behavior.
+  };
 
   return (
     <div className="movie-hero-banner" role="banner" aria-label={`Featured: ${movie.title}`}>
@@ -33,13 +48,14 @@ const MovieHeroBanner = ({ movie, navigate, onPrev, onNext, total = 3, current =
       {/* ── Centered content (title, description, actions) ── */}
       <div className="movie-hero-banner__content">
         <div className="movie-hero-banner__text">
+          {/* REQ: WM-8297 - Exact title and description text from movie data */}
           <h1 className="movie-hero-banner__title">{movie.title}</h1>
           <p className="movie-hero-banner__desc">{movie.description}</p>
         </div>
 
         {/* Action buttons row */}
         <div className="movie-hero-banner__actions">
-          {/* Play Now button */}
+          {/* Play Now button — navigates to show detail */}
           <button
             className="movie-hero-banner__play-btn"
             onClick={() => navigate && navigate('show-detail', movie)}
@@ -55,7 +71,11 @@ const MovieHeroBanner = ({ movie, navigate, onPrev, onNext, total = 3, current =
           {/* Secondary icon buttons */}
           <div className="movie-hero-banner__icon-btns">
             {/* Add to watchlist */}
-            <button className="movie-hero-banner__icon-btn" aria-label="Add to watchlist">
+            <button
+              className="movie-hero-banner__icon-btn"
+              aria-label="Add to watchlist"
+              onClick={() => handleIconAction('add-to-watchlist')}
+            >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path
                   d="M12 5V19M5 12H19"
@@ -67,7 +87,11 @@ const MovieHeroBanner = ({ movie, navigate, onPrev, onNext, total = 3, current =
             </button>
 
             {/* Like */}
-            <button className="movie-hero-banner__icon-btn" aria-label="Like">
+            <button
+              className="movie-hero-banner__icon-btn"
+              aria-label="Like"
+              onClick={() => handleIconAction('like')}
+            >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path
                   d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
@@ -80,7 +104,11 @@ const MovieHeroBanner = ({ movie, navigate, onPrev, onNext, total = 3, current =
             </button>
 
             {/* Volume / sound */}
-            <button className="movie-hero-banner__icon-btn" aria-label="Sound">
+            <button
+              className="movie-hero-banner__icon-btn"
+              aria-label="Sound"
+              onClick={() => handleIconAction('volume')}
+            >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <polygon
                   points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"
@@ -103,6 +131,7 @@ const MovieHeroBanner = ({ movie, navigate, onPrev, onNext, total = 3, current =
       </div>
 
       {/* ── Navigation row: prev / indicators / next ── */}
+      {/* REQ: WM-8297 - Slider arrows/indicators as interactive controls */}
       <div className="movie-hero-banner__nav">
         {/* Previous */}
         <button

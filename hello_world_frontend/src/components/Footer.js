@@ -1,16 +1,56 @@
 import React from 'react';
 import './Footer.css';
 
-const footerLinks = {
-  Home: ['Home', 'About Us', 'Contact Us', 'Blog'],
-  Movies: ['New Releases', 'Top Rated', 'Coming Soon', 'Genres'],
-  Shows: ['New Shows', 'Popular', 'Trending', 'Episodes'],
-  Support: null,
-  Subscription: ['Free Trial', 'Plans', 'Gift Cards', 'Manage'],
-};
+/**
+ * Footer link data using exact Figma labels.
+ *
+ * REQ: WM-8300 - Footer with exact labels (including typos like Gernes) across all screens.
+ * REQ: WM-8300 - Links are interactive but destinations unknown → use console.log / no-op
+ *                for unknown destinations to avoid dead clicks.
+ *
+ * Known typo per Figma: "Gernes" (not "Genres").
+ * Known typo per Figma: copyright "@2023 streamvib, All Rights Reserved".
+ */
+const footerColumns = [
+  {
+    heading: 'Home',
+    links: ['Home', 'About Us', 'Contact Us', 'Blog'],
+    routeMap: { Home: 'home' },
+  },
+  {
+    heading: 'Movies',
+    links: ['New Releases', 'Top Rated', 'Coming Soon', 'Genres'],
+    routeMap: { 'New Releases': 'movies', 'Top Rated': 'movies', 'Coming Soon': 'movies', Genres: 'movies' },
+  },
+  {
+    // REQ: WM-8300 - Exact Figma label "Gernes" (intentional typo per design spec)
+    heading: 'Gernes',
+    links: ['Action', 'Thrillers', 'Comedy', 'Romance', 'Documentary'],
+    routeMap: {
+      Action: 'movies',
+      Thrillers: 'movies',
+      Comedy: 'movies',
+      Romance: 'movies',
+      Documentary: 'movies',
+    },
+  },
+  {
+    heading: 'Support',
+    links: ['Contact Us'],
+    routeMap: {},
+  },
+  {
+    heading: 'Subscription',
+    links: ['Free Trial', 'Plans', 'Gift Cards', 'Manage'],
+    routeMap: {},
+  },
+];
 
 /**
  * Footer - Site-wide footer with navigation links, social buttons, and copyright.
+ *
+ * REQ: WM-8300 - Footer exact labels including known typo "Gernes" and "@2023 streamvib".
+ * REQ: WM-8291 - No dead clicks: all interactive elements have a handler.
  *
  * @param {Object}   props
  * @param {Function} props.navigate - App navigation handler
@@ -18,26 +58,41 @@ const footerLinks = {
  */
 // PUBLIC_INTERFACE
 const Footer = ({ navigate }) => {
+  /**
+   * Handle footer link clicks.
+   * If a route mapping exists, navigate there. Otherwise, gracefully no-op.
+   * This prevents dead clicks while avoiding fabricated destinations.
+   *
+   * REQ: WM-8291 - Deterministic click handling (no dead clicks).
+   */
+  const handleLinkClick = (link, routeMap) => {
+    const destination = routeMap[link];
+    if (destination && navigate) {
+      navigate(destination);
+    }
+    // If no route is known, the click is acknowledged but no navigation occurs.
+    // This is intentional per WM-8291: "destinations unknown" → do not fabricate routes.
+  };
+
   return (
     <footer className="footer">
       {/* Links Section */}
       <div className="footer__links-row">
-        {Object.entries(footerLinks).map(([category, links]) => (
-          <div className="footer__column" key={category}>
-            <h4 className="footer__col-heading">{category}</h4>
-            {links ? (
-              <div className="footer__col-links">
-                {links.map((link) => (
-                  <button key={link} className="footer__link" type="button">
-                    {link}
-                  </button>
-                ))}
-              </div>
-            ) : (
-              <button className="footer__link" type="button">
-                Contact Us
-              </button>
-            )}
+        {footerColumns.map(({ heading, links, routeMap }) => (
+          <div className="footer__column" key={heading}>
+            <h4 className="footer__col-heading">{heading}</h4>
+            <div className="footer__col-links">
+              {links.map((link) => (
+                <button
+                  key={link}
+                  className="footer__link"
+                  type="button"
+                  onClick={() => handleLinkClick(link, routeMap)}
+                >
+                  {link}
+                </button>
+              ))}
+            </div>
           </div>
         ))}
 
@@ -99,6 +154,7 @@ const Footer = ({ navigate }) => {
       <div className="footer__bottom">
         <div className="footer__divider" />
         <div className="footer__copyright-row">
+          {/* REQ: WM-8300 - Exact copyright text with known typo "@2023 streamvib" */}
           <span className="footer__copyright">@2023 streamvib, All Rights Reserved</span>
           <div className="footer__legal-links">
             <button className="footer__legal-link" type="button">Terms of Use</button>

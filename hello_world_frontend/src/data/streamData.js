@@ -117,7 +117,7 @@ export const shows = [
   {
     id: 101,
     title: 'Stranger Things',
-    year: '2016',
+    year: '2022',
     rating: '8.7',
     genres: ['Horror', 'Sci-Fi'],
     poster: '/assets/movie-bg-11.png',

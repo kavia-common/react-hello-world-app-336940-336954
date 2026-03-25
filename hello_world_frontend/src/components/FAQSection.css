@@ -61,6 +61,15 @@
   justify-content: space-between;
 }
 
+.faq-item__number {
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-grey-60);
+  min-width: 28px;
+  flex-shrink: 0;
+}
+
 .faq-item__question {
   font-family: var(--font-family);
   font-weight: 500;
