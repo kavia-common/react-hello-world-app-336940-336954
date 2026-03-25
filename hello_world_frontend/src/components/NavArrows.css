@@ -1,0 +1,49 @@
+.nav-arrows {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background-color: var(--color-bg-surface);
+  border: 1px solid var(--color-border-md);
+  border-radius: 10px;
+}
+
+.nav-arrows__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background-color: var(--color-bg-card);
+  border: 1px solid var(--color-border-md);
+  border-radius: var(--btn-radius);
+  color: var(--color-grey-75);
+  transition: all 0.2s ease;
+  padding: 10px;
+}
+
+.nav-arrows__btn:hover {
+  border-color: var(--color-accent);
+  color: var(--color-white);
+}
+
+.nav-arrows__indicators {
+  display: flex;
+  flex-direction: row;
+  gap: 3px;
+  align-items: center;
+}
+
+.nav-arrows__dot {
+  width: 18px;
+  height: 4px;
+  border-radius: 2px;
+  background-color: var(--color-dark-20);
+  transition: background-color 0.2s ease, width 0.2s ease;
+}
+
+.nav-arrows__dot--active {
+  background-color: var(--color-accent);
+  width: 23px;
+}

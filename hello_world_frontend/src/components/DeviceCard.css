@@ -1,0 +1,49 @@
+.device-card {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 40px;
+  background: linear-gradient(230deg, rgba(229,0,0,1) 0%, rgba(229,0,0,0) 37%), var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--card-radius);
+  flex: 1;
+  min-width: 0;
+  transition: transform 0.2s ease;
+}
+
+.device-card:hover {
+  transform: translateY(-2px);
+}
+
+.device-card__icon {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(229,0,0,0.15);
+  border-radius: var(--btn-radius);
+  flex-shrink: 0;
+}
+
+.device-card__content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.device-card__title {
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 1.5em;
+  color: var(--color-white);
+}
+
+.device-card__desc {
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.5em;
+  color: var(--color-grey-60);
+}

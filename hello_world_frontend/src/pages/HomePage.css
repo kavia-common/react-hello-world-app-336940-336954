@@ -1,0 +1,132 @@
+.home-page {
+  background-color: var(--color-bg-canvas);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.home-page__hero-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.home-page__section {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  padding: 0 80px;
+  margin-top: 80px;
+  width: 100%;
+  max-width: 1440px;
+  align-self: center;
+}
+
+.home-page__genre-grid {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  width: 100%;
+}
+
+.home-page__devices-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.home-page__devices-row {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.home-page__plans-grid {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  width: 100%;
+}
+
+/* Billing Tabs */
+.home-page__billing-tabs {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 8px;
+  background-color: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--btn-radius);
+}
+
+.home-page__billing-tab {
+  padding: 12px 20px;
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--color-grey-75);
+  background: transparent;
+  border: none;
+  border-radius: var(--btn-radius-sm);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.home-page__billing-tab--active {
+  background-color: var(--color-border-md);
+  color: var(--color-white);
+  font-weight: 600;
+}
+
+/* CTA Section */
+.home-page__cta-section {
+  padding: 0 80px;
+  margin-top: 80px;
+  margin-bottom: 0;
+  width: 100%;
+  max-width: 1440px;
+  align-self: center;
+}
+
+@media (max-width: 1024px) {
+  .home-page__section {
+    padding: 0 40px;
+    gap: 40px;
+    margin-top: 60px;
+  }
+  .home-page__cta-section {
+    padding: 0 40px;
+    margin-top: 60px;
+  }
+  .home-page__genre-grid {
+    flex-wrap: wrap;
+  }
+  .home-page__genre-grid > * {
+    min-width: calc(33.33% - 14px);
+  }
+  .home-page__plans-grid {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 768px) {
+  .home-page__section {
+    padding: 0 20px;
+    gap: 30px;
+    margin-top: 40px;
+  }
+  .home-page__cta-section {
+    padding: 0 20px;
+    margin-top: 40px;
+  }
+  .home-page__genre-grid {
+    flex-direction: column;
+  }
+  .home-page__devices-row {
+    flex-direction: column;
+  }
+  .home-page__plans-grid {
+    flex-direction: column;
+  }
+}
