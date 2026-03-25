@@ -2,120 +2,81 @@ import React from 'react';
 import './StreamVibeLogo.css';
 
 /**
- * StreamVibeLogo – Accurate StreamVibe vector logo component.
+ * StreamVibeLogo – StreamVibe logo component using the official Figma SVG asset.
  *
- * Renders the StreamVibe logo using an inline SVG vector that precisely
- * matches the Figma design:
+ * Renders the StreamVibe logo using the downloaded Figma SVG vector asset
+ * (node 2006:2479) for the icon, combined with the "StreamVibe" wordmark.
  *
- *  • Icon: 50×50 px dark (#1A1A1A) rounded rectangle (rx=12), 1px #262626 border,
- *    with two right-pointing chevron strokes in red (#E50000).
- *  • Wordmark: "StreamVibe" in Manrope Bold 700, 18px, white (#FFFFFF).
- *
- * The entire lockup is rendered as a single inline SVG for true vector
- * quality at any resolution.
+ * The Figma asset is a 50×50 red (#E60000) vector logo mark.
  *
  * @param {Object}  props
  * @param {string}  [props.className='']   – Optional extra CSS class on the root element
- * @param {number}  [props.iconSize=50]    – Height of the logo in px (scales proportionally)
+ * @param {number}  [props.iconSize=50]    – Height of the logo icon in px (scales proportionally)
  * @param {boolean} [props.showText=true]  – Whether to render the "StreamVibe" wordmark
  * @returns {JSX.Element}
  */
 // PUBLIC_INTERFACE
 const StreamVibeLogo = ({ className = '', iconSize = 50, showText = true }) => {
-  // Calculate proportional width:
-  // icon is 50px wide; full lockup (icon 50 + gap 8 + text ~108) = ~166px at iconSize=50
-  const scale = iconSize / 50;
-  const iconW = 50 * scale;
-  const iconH = 50 * scale;
-  const totalW = showText ? Math.round(166 * scale) : iconW;
-  const totalH = iconH;
+  // The Figma SVG asset path (served from public/assets/)
+  const logoSrc = '/assets/streamvibe-logo-from-figma.svg';
 
   if (!showText) {
-    // Icon-only: return the icon SVG
+    // Icon-only mode: render just the Figma SVG asset
     return (
-      <svg
+      <div
         className={`sv-logo sv-logo--icon-only ${className}`}
-        width={iconW}
-        height={iconH}
-        viewBox="0 0 50 50"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
+        style={{ display: 'inline-flex', alignItems: 'center' }}
         aria-label="StreamVibe"
         role="img"
       >
-        {/* Dark rounded-rectangle background */}
-        <rect width="50" height="50" rx="12" fill="#1A1A1A" />
-        {/* Border */}
-        <rect x="0.5" y="0.5" width="49" height="49" rx="11.5" stroke="#262626" strokeWidth="1" />
-        {/* Left chevron */}
-        <path
-          d="M14 17L22 25L14 33"
-          stroke="#E50000"
-          strokeWidth="4"
-          strokeLinecap="round"
-          strokeLinejoin="round"
+        <img
+          src={logoSrc}
+          alt="StreamVibe logo"
+          width={iconSize}
+          height={iconSize}
+          style={{ display: 'block' }}
         />
-        {/* Right chevron */}
-        <path
-          d="M24 17L32 25L24 33"
-          stroke="#E50000"
-          strokeWidth="4"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
+      </div>
     );
   }
 
-  // Full lockup: icon + wordmark in one SVG for pixel-perfect vector rendering
+  // Full lockup: icon + wordmark side by side
   return (
-    <svg
+    <div
       className={`sv-logo ${className}`}
-      width={totalW}
-      height={totalH}
-      viewBox="0 0 166 50"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
+      style={{
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: '10px',
+      }}
       aria-label="StreamVibe"
       role="img"
     >
-      {/* ── Icon ─────────────────────────────────────────────── */}
-      {/* Dark rounded-rectangle background */}
-      <rect width="50" height="50" rx="12" fill="#1A1A1A" />
-      {/* Border */}
-      <rect x="0.5" y="0.5" width="49" height="49" rx="11.5" stroke="#262626" strokeWidth="1" />
-      {/* Left chevron */}
-      <path
-        d="M14 17L22 25L14 33"
-        stroke="#E50000"
-        strokeWidth="4"
-        strokeLinecap="round"
-        strokeLinejoin="round"
+      {/* Official Figma SVG logo icon */}
+      <img
+        src={logoSrc}
+        alt=""
+        aria-hidden="true"
+        width={iconSize}
+        height={iconSize}
+        style={{ display: 'block', flexShrink: 0 }}
       />
-      {/* Right chevron */}
-      <path
-        d="M24 17L32 25L24 33"
-        stroke="#E50000"
-        strokeWidth="4"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-
-      {/* ── Wordmark ─────────────────────────────────────────── */}
-      {/* Gap between icon and text: 8px (icon ends at x=50, text starts at x=58) */}
-      <text
-        x="58"
-        y="33"
-        fontFamily="Manrope, sans-serif"
-        fontWeight="700"
-        fontSize="18"
-        fill="#FFFFFF"
-        letterSpacing="0"
-        dominantBaseline="auto"
+      {/* StreamVibe wordmark */}
+      <span
+        className="sv-logo__wordmark"
+        style={{
+          fontFamily: 'Manrope, sans-serif',
+          fontWeight: 700,
+          fontSize: `${Math.round(18 * (iconSize / 50))}px`,
+          color: '#FFFFFF',
+          letterSpacing: '0',
+          whiteSpace: 'nowrap',
+          lineHeight: 1,
+        }}
       >
         StreamVibe
-      </text>
-    </svg>
+      </span>
+    </div>
   );
 };
 
