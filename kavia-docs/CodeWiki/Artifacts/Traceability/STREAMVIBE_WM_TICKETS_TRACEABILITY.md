@@ -1,3 +1,9 @@
+# StreamVibe WM-8291..WM-8300 Traceability Matrix v2 (superseded)
+
+> **⚠️ This document has been superseded by [Req_Trace.md](./Req_Trace.md).**
+> Please refer to `Req_Trace.md` for the current, authoritative requirements traceability matrix
+> scoped to WM-8291..WM-8300 and US-001..US-027.
+
 # StreamVibe WM-8291..WM-8300 Traceability Matrix v2
 
 ## Overview
