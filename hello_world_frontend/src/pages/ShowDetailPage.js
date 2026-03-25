@@ -3,7 +3,6 @@ import './ShowDetailPage.css';
 import Navbar from '../components/Navbar';
 import CTABanner from '../components/CTABanner';
 import Footer from '../components/Footer';
-import { shows } from '../data/streamData';
 
 const defaultShow = {
   id: 101,

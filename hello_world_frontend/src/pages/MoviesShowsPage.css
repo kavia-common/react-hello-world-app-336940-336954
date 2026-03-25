@@ -1,3 +1,9 @@
+/* ================================================================
+   MoviesShowsPage.css — Matches Figma node 2005:873
+   StreamVibe Movies & Shows Page — dark theme (#141414 canvas)
+   ================================================================ */
+
+/* ── Page wrapper ── */
 .movies-page {
   background-color: var(--color-bg-canvas);
   min-height: 100vh;
@@ -5,10 +11,11 @@
   flex-direction: column;
 }
 
+/* ── Hero wrapper (Navbar + Hero Banner) ── */
 .movies-page__hero-wrapper {
   position: relative;
   width: 100%;
-  padding-top: 138px;
+  padding-top: 0;
   background-color: var(--color-bg-canvas);
 }
 
@@ -17,25 +24,63 @@
   width: 100%;
   max-width: 1440px;
   margin: 0 auto;
+  padding-top: 20px;
 }
 
-/* Genre filter */
-.movies-page__genre-filter-wrapper {
-  margin-top: 60px;
+/* ── Genre Filter Section ── */
+.movies-page__genre-section {
+  margin-top: 48px;
   padding: 0 80px;
   width: 100%;
   max-width: 1440px;
   align-self: center;
+  box-sizing: border-box;
 }
 
-.movies-page__genre-filter {
+.movies-page__genre-panel {
   background-color: var(--color-bg-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--card-radius-lg);
-  padding: 20px;
-  overflow: hidden;
+  padding: 24px 40px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
 }
 
+/* Genre panel header row */
+.movies-page__genre-header {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.movies-page__genre-title-block {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.movies-page__genre-title {
+  font-family: var(--font-family);
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 1.5;
+  color: var(--color-white);
+  margin: 0;
+}
+
+.movies-page__genre-subtitle {
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--color-grey-60);
+  margin: 0;
+}
+
+/* Horizontally scrollable genre pill tabs */
 .movies-page__genre-scroll {
   display: flex;
   flex-direction: row;
@@ -43,7 +88,7 @@
   overflow-x: auto;
   scrollbar-width: none;
   -ms-overflow-style: none;
-  flex-wrap: wrap;
+  padding-bottom: 4px;
 }
 
 .movies-page__genre-scroll::-webkit-scrollbar {
@@ -51,17 +96,18 @@
 }
 
 .movies-page__genre-btn {
-  padding: 8px 20px;
+  padding: 10px 24px;
   border-radius: var(--btn-radius-sm);
   font-family: var(--font-family);
   font-weight: 500;
   font-size: 14px;
-  background: transparent;
+  background: var(--color-bg-card);
   border: 1px solid var(--color-border);
   color: var(--color-grey-75);
   cursor: pointer;
   transition: all 0.2s ease;
   white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .movies-page__genre-btn:hover {
@@ -76,25 +122,35 @@
   font-weight: 600;
 }
 
-/* Sections */
+/* ── Section (Movies / Shows) ── */
 .movies-page__section {
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 24px;
   padding: 0 80px;
   margin-top: 60px;
   width: 100%;
   max-width: 1440px;
   align-self: center;
+  box-sizing: border-box;
 }
 
+/* Section header row: title block + nav arrows */
 .movies-page__section-header {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 0 40px;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
 }
 
+.movies-page__section-title-block {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Red label badge */
 .movies-page__section-label {
   display: inline-flex;
   align-items: center;
@@ -108,66 +164,150 @@
   align-self: flex-start;
 }
 
-.movies-page__content-container {
+.movies-page__section-subtitle {
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--color-grey-60);
+  margin: 0;
+}
+
+/* Content panel — card grid container */
+.movies-page__content-panel {
   background-color: var(--color-bg-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--card-radius-lg);
-  padding: 40px;
+  padding: 32px 40px;
 }
 
+/* 5-column responsive grid */
 .movies-page__grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 20px;
 }
 
+/* Empty state message */
 .movies-page__empty {
   font-family: var(--font-family);
   font-size: 14px;
   color: var(--color-grey-60);
   text-align: center;
-  padding: 40px;
+  padding: 48px 20px;
 }
 
-/* CTA */
+/* ── CTA Banner ── */
 .movies-page__cta {
   padding: 0 80px;
   margin-top: 80px;
-  margin-bottom: 0;
   width: 100%;
   max-width: 1440px;
   align-self: center;
+  box-sizing: border-box;
 }
 
-@media (max-width: 1200px) {
+/* ================================================================
+   Responsive breakpoints
+   ================================================================ */
+
+/* Large desktop → 4 columns */
+@media (max-width: 1280px) {
   .movies-page__grid {
     grid-template-columns: repeat(4, 1fr);
   }
 }
 
+/* Medium desktop / tablet landscape → reduce padding, 3 columns */
 @media (max-width: 1024px) {
   .movies-page__hero-container,
-  .movies-page__genre-filter-wrapper,
+  .movies-page__genre-section,
   .movies-page__section,
   .movies-page__cta {
     padding: 0 40px;
   }
+
+  .movies-page__genre-panel {
+    padding: 20px 24px 28px;
+  }
+
+  .movies-page__content-panel {
+    padding: 24px;
+  }
+
   .movies-page__grid {
     grid-template-columns: repeat(3, 1fr);
   }
+
+  .movies-page__genre-title {
+    font-size: 22px;
+  }
+
+  .movies-page__section-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
 
+/* Tablet portrait → 2 columns */
 @media (max-width: 768px) {
-  .movies-page__hero-wrapper {
-    padding-top: 80px;
-  }
   .movies-page__hero-container,
-  .movies-page__genre-filter-wrapper,
+  .movies-page__genre-section,
   .movies-page__section,
   .movies-page__cta {
     padding: 0 20px;
   }
+
+  .movies-page__genre-section {
+    margin-top: 32px;
+  }
+
+  .movies-page__section {
+    margin-top: 40px;
+  }
+
+  .movies-page__genre-panel {
+    padding: 16px 20px 24px;
+    gap: 20px;
+  }
+
+  .movies-page__content-panel {
+    padding: 16px;
+  }
+
   .movies-page__grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+
+  .movies-page__genre-title {
+    font-size: 18px;
+  }
+
+  .movies-page__genre-btn {
+    padding: 8px 16px;
+    font-size: 13px;
+  }
+
+  .movies-page__genre-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .movies-page__cta {
+    margin-top: 48px;
+  }
+}
+
+/* Mobile → 1 column */
+@media (max-width: 480px) {
+  .movies-page__grid {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 12px;
+  }
+
+  .movies-page__section-label {
+    font-size: 14px;
+    padding: 6px 16px;
   }
 }
